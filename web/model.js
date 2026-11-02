@@ -65,6 +65,18 @@
     }
     return result;
   }
-  const api={defaults,components,validate,minimum,loan,growth,retained,compute,hybrids};
+  function financingMargin(used,newCar,p,term,apr,premium=0){
+    number(premium,'New-car preference premium',0);
+    function total(v,months,rate){const price=v.price*(1+p.tax/100)+p.fees;return price+loan(Math.max(0,price-p.down),rate,months,null,months).totalInterest;}
+    return total(newCar,newCar.term??p.term,newCar.apr)-total(used,term,apr)-premium;
+  }
+  function crossover(used,newCar,p,term,premium=0){
+    if(financingMargin(used,newCar,p,term,0,premium)<0)return {kind:'below-zero'};
+    if(financingMargin(used,newCar,p,term,100,premium)>0)return {kind:'above-range'};
+    let low=0,high=100;
+    for(let i=0;i<60;i++){const mid=(low+high)/2;if(financingMargin(used,newCar,p,term,mid,premium)>0)low=mid;else high=mid;}
+    return {kind:'rate',rate:(low+high)/2};
+  }
+  const api={defaults,components,validate,minimum,loan,growth,retained,compute,hybrids,financingMargin,crossover};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LotLogic=api;
 })(globalThis);

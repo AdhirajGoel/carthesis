@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from vehicle_reference import key
 from add_deal_edge import calculate_scores
-from search import write_workbook, spreadsheet_value
+from search import write_workbook, spreadsheet_value, find_master_workbook, append_new_cars
 from lotlogic import export_comparison
 
 
@@ -27,6 +27,10 @@ def main():
     assert scores[data['listings'][0]['vin']] == 3.7
     with TemporaryDirectory() as folder:
         folder = Path(folder)
+        master = find_master_workbook(folder / 'fresh')
+        candidate = dict(data['listings'][0], make='Honda', model='Civic')
+        assert len(append_new_cars(master, [candidate])) == 1
+        assert append_new_cars(master, [candidate]) == []
         workbook = folder / 'candidates.xlsx'
         for row in data['listings']:
             row['deal_edge_pct'] = scores[row['vin']]

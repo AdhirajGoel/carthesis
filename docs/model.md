@@ -16,6 +16,10 @@ Vehicles share a `pair` identifier only when the buyer or research agent has mat
 
 The synthetic demo deliberately contains a case where the hybrid's premium does not repay itself. Changing the assumptions can reverse that result. These examples describe the model's behavior, not current offers or a market-wide finding.
 
+## Financing crossover
+
+The APR crossover view compares purchase price, taxes, fees, and total scheduled interest through full payoff. It varies the used-car APR across 36-, 48-, and 60-month terms while holding the new-car financing fixed. The threshold is the rate where used-car savings fall to zero or to the buyer's entered preference for extra savings. Operating costs and resale remain in the separate ownership comparison.
+
 ## Local price index
 
 `add_deal_edge.py` reuses the research tool's seller-balanced nearest-peer calculation. It requires a valid unique VIN, price, mileage, year, seller, verified current-trim match, matching reference MSRP, and resolved drivetrain. Comparison groups match the current benchmark, body, powertrain, drivetrain, and certification status.

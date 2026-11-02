@@ -29,7 +29,7 @@ def main():
         assert '3.70%' in page.locator('#view').inner_text()
         if args.screenshots:
             page.screenshot(path=str(args.screenshots / 'local-price-index.png'), full_page=True)
-        for tab in ['Ownership costs', 'Gas vs hybrid', 'Loan & prepay', 'Assumptions']:
+        for tab in ['Ownership costs', 'Gas vs hybrid', 'Loan & prepay', 'APR crossover', 'Assumptions']:
             page.get_by_role('button', name=tab, exact=True).click()
             assert page.locator('#error').is_hidden(), page.locator('#error').inner_text()
         page.get_by_role('button', name='Edit', exact=True).first.click()
@@ -62,7 +62,7 @@ def main():
         assert not failures, failures
         context.close()
         browser.close()
-    print('All six views, edit/save, safe imports, invalid inputs, and mobile layout passed')
+    print('All seven views, edit/save, safe imports, invalid inputs, and mobile layout passed')
 
 
 if __name__ == '__main__':

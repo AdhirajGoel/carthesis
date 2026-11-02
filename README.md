@@ -24,7 +24,7 @@ To try the demo yourself, open **web/index.html** in a browser or double-click *
 
 ![Synthetic local price comparison showing a listing 3.70 percent below its supported peer benchmark](docs/images/local-price-index.png)
 
-**What will it cost to own?** The ownership model combines the purchase price and taxes, interest incurred during the holding period, fuel, insurance, maintenance and repairs, registration, and expected resale. It also shows loan prepayment and an explicit gas-versus-hybrid comparison. Each assumption can be changed, and each cost component can be included or excluded.
+**What will it cost to own?** The ownership model combines the purchase price and taxes, interest incurred during the holding period, fuel, insurance, maintenance and repairs, registration, and expected resale. It also shows loan prepayment, the used-car APR that erases a new-car price advantage, and an explicit gas-versus-hybrid comparison. Each assumption can be changed, and each cost component can be included or excluded.
 
 ## Use your own research
 

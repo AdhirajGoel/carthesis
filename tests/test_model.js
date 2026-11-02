@@ -24,3 +24,9 @@ for(const bad of [{...demo,vehicles:[]},{...demo,vehicles:[{...vehicle,mpg:0}]},
 const script=fs.readFileSync(require('node:path').join(__dirname,'../web/demo.js'),'utf8');
 assert.deepEqual(JSON.parse(script.slice('const DEMO = '.length).trim().replace(/;$/,'')),JSON.parse(fs.readFileSync(require('node:path').join(__dirname,'../examples/comparison.json'),'utf8')));
 console.log('Ownership, financing, hybrid, input validation and demo consistency checks passed');
+
+const cross=M.crossover(demo.vehicles[2],demo.vehicles[0],demo.assumptions,60);
+assert.equal(cross.kind,'rate');
+close(M.financingMargin(demo.vehicles[2],demo.vehicles[0],demo.assumptions,60,cross.rate),0);
+assert.ok(M.financingMargin(demo.vehicles[2],demo.vehicles[0],demo.assumptions,60,cross.rate+1)<0);
+console.log('Financing crossover parity and direction passed');
