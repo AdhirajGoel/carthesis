@@ -4,6 +4,8 @@ Compare car deals by local market price and total cost of ownership.
 
 A low asking price can be a good local deal and still be the more expensive purchase. LotLogic combines MarketCheck listing research with a seller-balanced local price index and an editable ownership model. Compare new and used cars, test whether a hybrid premium pays back, and see what financing, fuel, insurance, maintenance, and resale do to the result.
 
+I love data, especially when it changes an everyday decision. This project grew out of wanting to test familiar car-buying advice against local listings and the full cost of ownership.
+
 ![Synthetic new, hybrid, and used vehicles ranked by five-year ownership cost](docs/images/ownership-overview.png)
 
 In this synthetic example, the used car starts $4,000 cheaper than the new car but costs more to own under the entered financing and operating assumptions. Change the mileage, rates, or resale estimates to test a different outcome.
