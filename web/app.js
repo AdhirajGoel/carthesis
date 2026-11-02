@@ -1,6 +1,6 @@
 'use strict';
 const M=LotLogic;
-let state=M.validate(DEMO), enabled=[...M.components], tab='Overview', selected=null, sort='net', ascending=true;
+let state=M.validate(DEMO), tab='Overview', selected=null, sort='net', ascending=true;
 const excluded=new Set(), filters={brand:'All',power:'All',condition:'All'};
 const $=id=>document.getElementById(id);
 const money=x=>Number.isFinite(x)?new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(x):'—';
@@ -13,8 +13,13 @@ function field(label,value,change,options={}){
   input.type='number';input.value=value;input.step=options.step??'any';input.min=options.min??0;input.setAttribute('aria-label',label);
   l.append(input);wrap.append(l);input.onchange=()=>{
     const previous=structuredClone(state);
-    try{if(input.value==='')throw Error(`${label} is required.`);change(Number(input.value));state=M.validate(state);render();}
-    catch(e){state=previous;input.value=value;error(e);}
+    try{
+      if(input.value==='')throw Error(`${label} is required.`);
+      change(Number(input.value));
+      const checked=M.validate(state);
+      checked.vehicles.forEach(v=>M.compute(v,checked.assumptions,checked.enabled));
+      state=checked;controls();render();
+    }catch(e){state=previous;controls();render();error(e);}
   };return wrap;
 }
 const inputNames={daily:'Miles per day',years:'Ownership years',gas:'Gas price ($/gallon)',down:'Down payment ($)',term:'Loan term (months)',tax:'Sales tax (%)',ins:'Default insurance ($/year)',fees:'One-time fees ($)',reg:'Registration ($/year)',infl:'Annual operating-cost inflation (%)'};
@@ -22,7 +27,7 @@ function controls(){
   $('inputs').replaceChildren();
   for(const [k,label] of Object.entries(inputNames))$('inputs').append(field(label,state.assumptions[k],n=>{state.assumptions[k]=n;},{step:k==='years'?1/12:k==='term'?1:'any'}));
   $('components').replaceChildren();
-  for(const k of M.components){const b=button(k,()=>{enabled=enabled.includes(k)?enabled.filter(x=>x!==k):[...enabled,k];controls();render();},'chip'+(enabled.includes(k)?' on':''));b.setAttribute('aria-pressed',enabled.includes(k));$('components').append(b);}
+  for(const k of M.components){const b=button(k,()=>{state.enabled=state.enabled.includes(k)?state.enabled.filter(x=>x!==k):[...state.enabled,k];controls();render();},'chip'+(state.enabled.includes(k)?' on':''));b.setAttribute('aria-pressed',state.enabled.includes(k));$('components').append(b);}
   $('filters').replaceChildren();
   for(const k of Object.keys(filters)){
     const label=node('label',k),select=node('select',null,'num');select.setAttribute('aria-label',`Filter ${k}`);
@@ -38,7 +43,7 @@ function table(headers,rows){const wrap=node('div',null,'tablewrap'),t=node('tab
 function bars(rows){const box=node('div');const max=Math.max(...rows.map(r=>Math.abs(r.value)),1);
   rows.forEach(r=>{const line=node('div',null,'bar-row'),track=node('div',null,'bar-wrap'),bar=node('div',null,'bar'),value=node('span',money(r.value),'bar-val');bar.style.width=`${Math.abs(r.value)/max*100}%`;bar.style.background=r.hybrid?'var(--hyb)':'var(--accent)';track.append(bar,value);line.append(node('div',r.name,'lab'),track);box.append(line);});return box;}
 function overview(root){
-  const rows=visible().map(v=>({v,c:M.compute(v,state.assumptions,enabled)})).sort((a,b)=>a.c.net-b.c.net);
+  const rows=visible().map(v=>({v,c:M.compute(v,state.assumptions,state.enabled)})).sort((a,b)=>a.c.net-b.c.net);
   if(!rows.length){root.append(node('p','No vehicles match. Adjust filters or restore excluded vehicles.'));return;}
   const kpis=node('div',null,'kpis');
   for(const [label,value,detail] of [['Lowest ownership cost',money(rows[0].c.net),rows[0].v.name],['Equivalent monthly cost',money(rows[0].c.perMonth),'Ownership cost spread over the holding period'],['Ownership horizon',`${state.assumptions.years} years`,`${Math.round(state.assumptions.daily*365).toLocaleString()} miles/year`]]){
@@ -50,7 +55,7 @@ function overview(root){
   explanation.append(table(['Vehicle','Asking price','Below local peer median','Ownership cost'],rows.map(r=>[r.v.name,money(r.v.price),r.v.dealEdge==null?'Not assessed':`${r.v.dealEdge.toFixed(1)}%`,money(r.c.net)])));root.append(explanation);
 }
 function comparison(root){
-  const rows=visible().map(v=>({v,c:M.compute(v,state.assumptions,enabled)}));rows.sort((a,b)=>((a.c[sort]??a.v[sort])-(b.c[sort]??b.v[sort]))*(ascending?1:-1));
+  const rows=visible().map(v=>({v,c:M.compute(v,state.assumptions,state.enabled)}));rows.sort((a,b)=>((a.c[sort]??a.v[sort])-(b.c[sort]??b.v[sort]))*(ascending?1:-1));
   const columns=[['price','Price'],['purchase','Out-the-door'],['interest','Interest'],['fuel','Fuel'],['insurance','Insurance'],['maintenance','Maintenance'],['registration','Registration'],['resale','Resale'],['net','Net cost']];
   const c=card('Ownership cost, component by component','Click a column to sort. Edit a vehicle to change its quote, operating costs, resale assumptions, or monthly payment.');
   c.append(table(['Vehicle',...columns.map(([k,label])=>button(label,()=>{ascending=sort===k?!ascending:true;sort=k;render();},'chip')),'Actions'],rows.map(({v,c})=>{
@@ -68,7 +73,7 @@ function market(root){
 }
 function hybrid(root){
   const c=card('Does the hybrid premium pay back?','Pairs are matched explicitly in the comparison file. Fuel-only payback is separate from the full ownership-cost comparison, which includes financing and every selected component.');
-  const pairs=M.hybrids(visible(),state.assumptions,enabled);
+  const pairs=M.hybrids(visible(),state.assumptions,state.enabled);
   c.append(table(['Gas → hybrid','Upfront premium','Annual fuel saved','Fuel-only payback','Net ownership savings'],pairs.map(p=>[`${p.gas.name} → ${p.hybrid.name}`,money(p.premium),money(p.annualFuelSavings),p.fuelPayback==null?'No fuel payback':`${p.fuelPayback.toFixed(1)} years`,money(p.netSavings)])));
   if(!pairs.length)c.append(node('p','No matched gas/hybrid pair is currently shown.'));root.append(c);
 }
@@ -76,14 +81,14 @@ function financing(root){
   const rows=visible();if(!rows.length)return;
   const v=rows.find(v=>v.id===selected)||rows[0];selected=v.id;
   const select=node('select',null,'sel');select.setAttribute('aria-label','Loan vehicle');rows.forEach(v=>{const o=node('option',v.name);o.value=v.id;select.append(o);});select.value=v.id;select.onchange=()=>{selected=select.value;render();};root.append(select);
-  const p=state.assumptions,c=M.compute(v,p,enabled),term=v.term??p.term,base=M.loan(Math.max(0,c.purchase-p.down),v.apr,term,null,Math.round(p.years*12));
+  const p=state.assumptions,c=M.compute(v,p,state.enabled),term=v.term??p.term,base=M.loan(Math.max(0,c.purchase-p.down),v.apr,term,null,Math.round(p.years*12));
   const top=card('Loan and prepayment','Monthly simple-interest amortization. Extra payments shorten the loan; the ownership comparison counts only interest through the sale month.');
-  top.append(field('Monthly payment ($)',c.financing.payment,n=>{v.payment=n;M.compute(v,p,enabled);}));
+  top.append(field('Monthly payment ($)',c.financing.payment,n=>{v.payment=n;M.compute(v,p,state.enabled);}));
   top.append(button('Use contractual minimum',()=>{delete v.payment;render();}));
   top.append(table(['Measure','Value'],[['APR',`${v.apr}%`],['Contractual minimum',money(c.financing.required)],['Payoff time',`${c.financing.months} months`],['Interest through sale',money(c.interest)],['Full-loan interest',money(c.financing.totalInterest)],['Full-loan interest saved by prepayment',money(base.totalInterest-c.financing.totalInterest)],['Loan balance at sale',money(c.financing.balance)]]));root.append(top);
   const schedule=card('Remaining principal');schedule.append(bars(c.financing.balances.filter((_,i)=>i%12===0).map((value,i)=>({name:`Year ${i}`,value}))));root.append(schedule);
 }
-let crossoverUsed=null,crossoverNew=null,preferencePremium=0;
+let crossoverUsed=null,crossoverNew=null;
 function financingCrossover(root){
   const used=visible().filter(v=>v.condition.toLowerCase()==='used'), fresh=visible().filter(v=>v.condition.toLowerCase()==='new');
   if(!used.length||!fresh.length){root.append(node('p','Show at least one New and one Used vehicle to compare financing.'));return;}
@@ -94,13 +99,13 @@ function financingCrossover(root){
     const l=node('label',label),select=node('select',null,'num');select.setAttribute('aria-label',label);
     cars.forEach(v=>{const o=node('option',v.name);o.value=v.id;select.append(o);});select.value=chosen;select.onchange=()=>{change(select.value);render();};l.append(select);c.append(l);
   }
-  c.append(field('Extra savings required to choose used ($)',preferencePremium,value=>{if(value<0)throw Error('Required savings must be nonnegative.');preferencePremium=value;}));
+  c.append(field('Extra savings required to choose used ($)',state.preferencePremium,value=>{if(value<0)throw Error('Required savings must be nonnegative.');state.preferencePremium=value;}));
   const terms=[36,48,60];
   c.append(table(['Used term','APR at cash parity','APR after required savings'],terms.map(term=>{
     const format=x=>x.kind==='rate'?`${x.rate.toFixed(2)}%`:x.kind==='below-zero'?'New wins even at 0%':'Used wins through 100%';
-    return [`${term} months`,format(M.crossover(u,n,state.assumptions,term)),format(M.crossover(u,n,state.assumptions,term,preferencePremium))];
+    return [`${term} months`,format(M.crossover(u,n,state.assumptions,term)),format(M.crossover(u,n,state.assumptions,term,state.preferencePremium))];
   })));
-  c.append(table(['Used APR',...terms.map(t=>`${t}-month savings after preference`)], [0,3,6,9,12,15].map(apr=>[`${apr}%`,...terms.map(t=>money(M.financingMargin(u,n,state.assumptions,t,apr,preferencePremium)))])));
+  c.append(table(['Used APR',...terms.map(t=>`${t}-month savings after preference`)], [0,3,6,9,12,15].map(apr=>[`${apr}%`,...terms.map(t=>money(M.financingMargin(u,n,state.assumptions,t,apr,state.preferencePremium)))])));
   root.append(c);
 }
 function assumptions(root){const c=card('Vehicle assumptions and evidence','Retention fractions describe resale relative to today’s purchase price, measured from purchase. Replace demo estimates with vehicle-specific sources and buyer quotes.');
@@ -116,18 +121,18 @@ function edit(vehicle){
   const save=node('button','Save vehicle','btn');save.type='submit';form.append(save,button('Cancel',()=>dialog.close()));
   form.onsubmit=e=>{e.preventDefault();try{
     for(const [k,value] of new FormData(form)){if(value===''){delete v[k];continue;}v[k]=numbers.has(k)?Number(value):value;}
-    if(existing&&['price','name','brand','model','power','condition'].some(k=>v[k]!==vehicle[k])){delete v.dealEdge;delete v.marketSource;}
+    if(existing&&['price','name','brand','model','body','power','condition'].some(k=>v[k]!==vehicle[k])){delete v.dealEdge;delete v.marketSource;}
     const next={...state,vehicles:existing?state.vehicles.map(x=>x.id===v.id?v:x):[...state.vehicles,v]};
-    const checked=M.validate(next);checked.vehicles.forEach(x=>M.compute(x,checked.assumptions,enabled));state=checked;controls();render();dialog.close();
+    const checked=M.validate(next);checked.vehicles.forEach(x=>M.compute(x,checked.assumptions,checked.enabled));state=checked;controls();render();dialog.close();
   }catch(e){issue.textContent=e.message;issue.hidden=false;}};
   dialog.append(form);document.body.append(dialog);dialog.addEventListener('close',()=>dialog.remove());dialog.showModal();
 }
 const tabs={Overview:overview,'Local price index':market,'Ownership costs':comparison,'Gas vs hybrid':hybrid,'Loan & prepay':financing,'APR crossover':financingCrossover,Assumptions:assumptions};
 for(const name of Object.keys(tabs)){const b=button(name,()=>{tab=name;render();},'tab');$('tabs').append(b);}
 function render(){try{error(null);state=M.validate(state);$('title').textContent=tab;$('view').replaceChildren();for(const b of $('tabs').children){b.classList.toggle('on',b.textContent===tab);b.setAttribute('aria-current',b.textContent===tab?'page':'false');}tabs[tab]($('view'));}catch(e){error(e);}}
-$('reset').onclick=()=>{state=M.validate(DEMO);enabled=[...M.components];excluded.clear();for(const k in filters)filters[k]='All';$('dataset').textContent='Synthetic demo · editable assumptions';controls();render();};
+$('reset').onclick=()=>{state=M.validate(DEMO);excluded.clear();for(const k in filters)filters[k]='All';$('dataset').textContent='Synthetic demo · editable assumptions';controls();render();};
 $('add').onclick=()=>edit(null);
 $('choose-file').onclick=()=>$('import').click();
-$('import').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;if(file.size>2e6)throw Error('Comparison files must be smaller than 2 MB.');const next=M.validate(JSON.parse(await file.text()));next.vehicles.forEach(v=>M.compute(v,next.assumptions));state=next;excluded.clear();$('dataset').textContent=state.title;controls();render();}catch(e){error(e);}finally{e.target.value='';}};
+$('import').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;if(file.size>2e6)throw Error('Comparison files must be smaller than 2 MB.');const next=M.validate(JSON.parse(await file.text()));next.vehicles.forEach(v=>M.compute(v,next.assumptions,next.enabled));state=next;excluded.clear();$('dataset').textContent=state.title;controls();render();}catch(e){error(e);}finally{e.target.value='';}};
 $('export').onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)+'\n'],{type:'application/json'}),url=URL.createObjectURL(blob),a=node('a');a.href=url;a.download='comparison.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
 controls();render();

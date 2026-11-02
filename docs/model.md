@@ -37,3 +37,5 @@ The benchmark is the median peer asking price adjusted to the target reference M
 - `examples/local-listings.json` reproduces the synthetic local score; `examples/comparison.json` reproduces the browser example.
 
 The offline tests cover amortization, prepayment, early sale, hybrid comparisons, input validation, the local index, workbook export, search filtering, and the retained utilities. Browser tests exercise all views, edit/save, imports, invalid data, and narrow layouts.
+
+Public vehicle-history facts are accepted only when the report body identifies the requested VIN without a conflicting identity. Missing or mismatched VINs stay unverified; older cached reports without VIN verification must be checked again.

@@ -8,6 +8,9 @@
   }
   function validate(s) {
     if(!s||s.version!==1||!Array.isArray(s.vehicles)||!s.vehicles.length||s.vehicles.length>200) throw Error('Expected a version 1 comparison with 1–200 vehicles.');
+    const enabled=s.enabled===undefined?[...components]:s.enabled;
+    if(!Array.isArray(enabled)||enabled.some(k=>!components.includes(k))||new Set(enabled).size!==enabled.length)throw Error('Cost components must be a list of unique supported names.');
+    const preferencePremium=number(s.preferencePremium===undefined?0:s.preferencePremium,'Extra savings required to choose used',0);
     const p={...defaults,...s.assumptions};
     for(const k of Object.keys(defaults)) number(p[k],k,0);
     number(p.years,'Ownership years',1/12,30);number(p.term,'Loan term',1,120);
@@ -28,7 +31,7 @@
       for(const k of ['pair','source','checkedAt','url'])if(v[k]!=null&&(typeof v[k]!=='string'||v[k].length>2000))throw Error(`Invalid ${k}.`);
       return {...v};
     });
-    return {version:1,title:typeof s.title==='string'?s.title:'Comparison',assumptions:p,vehicles};
+    return {version:1,title:typeof s.title==='string'?s.title:'Comparison',assumptions:p,vehicles,enabled:[...enabled],preferencePremium};
   }
   function minimum(principal,apr,term){const r=apr/1200;return principal===0?0:r===0?principal/term:principal*r/(1-Math.pow(1+r,-term));}
   function loan(principal,apr,term,payment,horizon){

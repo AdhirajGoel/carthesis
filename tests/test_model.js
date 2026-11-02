@@ -30,3 +30,12 @@ assert.equal(cross.kind,'rate');
 close(M.financingMargin(demo.vehicles[2],demo.vehicles[0],demo.assumptions,60,cross.rate),0);
 assert.ok(M.financingMargin(demo.vehicles[2],demo.vehicles[0],demo.assumptions,60,cross.rate+1)<0);
 console.log('Financing crossover parity and direction passed');
+
+const legacy=JSON.parse(fs.readFileSync(require('node:path').join(__dirname,'../examples/comparison.json'),'utf8'));
+assert.deepEqual(M.validate(legacy).enabled,M.components);
+assert.equal(M.validate(legacy).preferencePremium,0);
+const settings={...demo,enabled:['purchase','interest'],preferencePremium:2000};
+assert.deepEqual(M.validate(JSON.parse(JSON.stringify(settings))),settings);
+assert.deepEqual(M.validate({...demo,enabled:[]}).enabled,[]);
+for(const bad of [{enabled:['typo']},{enabled:['fuel','fuel']},{enabled:'fuel'},{enabled:null},{preferencePremium:-1},{preferencePremium:null},{preferencePremium:Infinity}])assert.throws(()=>M.validate({...demo,...bad}));
+console.log('Saved settings, legacy defaults and settings validation passed');

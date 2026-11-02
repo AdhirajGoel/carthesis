@@ -9,7 +9,7 @@ Examples:
 
 Successful VINs are cached in results/vin-<tool>.jsonl and skipped on later runs.
 History calls also produce a flat CSV. Use --refresh to fetch cached VINs again.
-Set MARKETCHECK_API_KEY before making API calls.
+Set MARKETCHECK_API_KEY in the environment or macOS Keychain before making API calls.
 """
 
 from __future__ import annotations
@@ -19,11 +19,10 @@ import ssl
 import certifi
 import csv
 import json
-import os
 import re
 import sys
 import time
-from search import spreadsheet_value
+from search import spreadsheet_value, load_api_key
 from datetime import datetime
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -187,9 +186,7 @@ def run(args: argparse.Namespace) -> int:
 
     if not args.csv:
         raise RuntimeError("Provide an input CSV containing a VIN column")
-    api_key = os.environ.get("MARKETCHECK_API_KEY", "").strip()
-    if not api_key:
-        raise RuntimeError("Set MARKETCHECK_API_KEY in your shell before running VIN tools")
+    api_key = load_api_key()
 
     vins, invalid = read_vins(args.csv)
     completed = set() if args.refresh else cached_vins(output)

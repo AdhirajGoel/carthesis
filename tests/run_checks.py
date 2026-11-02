@@ -45,6 +45,7 @@ def main():
         result = json.loads((folder / 'comparison.json').read_text())
         assert result['vehicles'][2]['price'] == 26000
         assert result['vehicles'][2]['dealEdge'] == 3.7
+    subprocess.run([sys.executable, str(ROOT / 'tests/test_regressions.py')], env=env, check=True)
     subprocess.run(['node', str(ROOT / 'tests/test_model.js')], check=True)
     print('All offline checks passed')
 

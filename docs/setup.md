@@ -53,7 +53,7 @@ Optional tools retain their own `--help` and offline `--self-test` commands:
 
 ## Build the ownership comparison
 
-Edit `data/comparison.json`, using `examples/comparison.json` as the schema. Prices and all costs are US dollars. `maint` is annual maintenance plus repairs; `insurance` is an optional vehicle-specific annual quote. `r5` and `r10` are resale fractions of today's purchase price after another five and ten years of ownership. `term` optionally overrides the common loan term. `source` and `checkedAt` preserve the origin and date of assumptions.
+Edit `data/comparison.json`, using `examples/comparison.json` as the schema. Saved files also retain `enabled` (the included cost components) and `preferencePremium` (extra savings required to choose used). Older files without these fields include all components and require $0 extra savings. Prices and all costs are US dollars. `maint` is annual maintenance plus repairs; `insurance` is an optional vehicle-specific annual quote. `r5` and `r10` are resale fractions of today's purchase price after another five and ten years of ownership. `term` optionally overrides the common loan term. `source` and `checkedAt` preserve the origin and date of assumptions.
 
 For a listed vehicle, set `vin` to its candidate VIN. New-car quotes can omit `vin`. Transfer the workbook's asking prices and deal scores into the comparison:
 

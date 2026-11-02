@@ -61,6 +61,7 @@ WIDTHS = {
     "history_report_url": 48,
     "history_checked_at": 23,
 }
+REPORT_VIN_RE = re.compile(r"(?<![A-Z0-9])[A-HJ-NPR-Z0-9]{17}(?![A-Z0-9])", re.I)
 REPORT_RE = re.compile(
     r"carfax|auto\s*check|experian|vehicle\s+history|history\s+report|\bvhr\b", re.I,
 )
@@ -322,11 +323,18 @@ def check_car(context, car: dict, direct_url: str = "") -> dict:
         page.goto(report_url, referer=listing_url, wait_until="domcontentloaded", timeout=45_000)
         page.wait_for_timeout(3_000)
         report_text, _ = page_content(page)
-        parsed = parse_report(report_text, provider, report_url)
-        if parsed["history_status"] == "available":
-            return parsed
         if BLOCK_RE.search(report_text[:10_000]):
             return outcome("report_blocked", f"{provider} report blocked public browser access", report_url, provider)
+        vin = car["vin"].upper()
+        body_vins = {value.upper() for value in REPORT_VIN_RE.findall(report_text)}
+        url_vins = {value.upper() for value in REPORT_VIN_RE.findall(unquote(page.url))}
+        if not body_vins:
+            return outcome("vin_unverified", "report vehicle VIN could not be verified", report_url, provider)
+        if body_vins != {vin} or url_vins - {vin}:
+            return outcome("vin_mismatch", "report vehicle identity does not match the requested VIN", report_url, provider)
+        parsed = parse_report(report_text, provider, report_url)
+        if parsed["history_status"] == "available":
+            parsed["history_verified_vin"] = vin
         return parsed
     except Exception as error:
         return outcome(
@@ -349,7 +357,17 @@ def load_cache(path: Path) -> dict[str, dict]:
     records = data.get("vehicles") if isinstance(data, dict) else None
     if not isinstance(records, dict):
         raise RuntimeError(f"{path.name} has an invalid format; it was left unchanged")
-    return {str(vin).upper(): record for vin, record in records.items() if isinstance(record, dict)}
+    checked = {}
+    for vin, record in records.items():
+        if not isinstance(record, dict):
+            continue
+        vin = str(vin).upper()
+        # Old caches predate report-identity verification and must be checked again.
+        if record.get("history_status") == "available" and record.get("history_verified_vin") != vin:
+            record = outcome("vin_unverified", "cached report needs VIN verification",
+                             record.get("history_report_url", ""), record.get("history_provider", ""))
+        checked[vin] = record
+    return checked
 
 
 def save_cache(path: Path, records: dict[str, dict]) -> None:
