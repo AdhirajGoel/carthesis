@@ -928,6 +928,7 @@ def self_test() -> None:
             "make": "Toyota",
             "model": "Camry",
             "trim": "LE",
+            "body_type": "Sedan",
             "transmission": "Automatic",
             "powertrain_type": "Combustion",
         },

@@ -38,7 +38,7 @@ Save a backup before modifying a workbook. Score the candidate workbook after ch
 .venv/bin/python add_deal_edge.py results/candidates-Master.xlsx --run-year 2026
 ```
 
-Use the actual search year for `--run-year`. Mark `shortlist` as `1` on the individual make sheets, save the workbook, then run:
+Use the actual search year for `--run-year`. Scoring and comparison export stop if a VIN has different scoring inputs across sheets; reconcile those rows before retrying. Mark `shortlist` as `1` on the individual make sheets, save the workbook, then run:
 
 ```sh
 .venv/bin/python update_shortlist.py
@@ -60,6 +60,8 @@ For a listed vehicle, set `vin` to its candidate VIN. New-car quotes can omit `v
 ```sh
 .venv/bin/python carthesis.py compare results/candidates-Master.xlsx --assumptions data/comparison.json --output data/comparison.json
 ```
+
+The command uses Node and the shared ownership model to validate the complete comparison before replacing the output. Invalid inputs or a refreshed price that makes a custom payment too low for the loan leave the saved file unchanged.
 
 Choose **Open comparison JSON** in the app and select that file. Compare outcomes, then use **Save comparison** to keep your edits.
 

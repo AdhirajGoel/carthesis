@@ -108,6 +108,9 @@ def selected_rows(path: Path) -> list[dict]:
 
 
 def rebuild(results: Path = RESULTS, output: Path = OUTPUT) -> tuple[int, int]:
+    import history_check
+    history_cache = results / "history-reports.json"
+    history_records = history_check.load_cache(history_cache) if history_cache.exists() else None
     saved_kbb = previous_kbb_values(output)
     sources = sorted(
         (
@@ -130,11 +133,12 @@ def rebuild(results: Path = RESULTS, output: Path = OUTPUT) -> tuple[int, int]:
             car.update(values)
     makes = tuple(make for make in base.MODELS if any(car.get("make") == make for car in cars))
     output.parent.mkdir(parents=True, exist_ok=True)
-    base.write_workbook(output, cars, makes, extra_fields=EXTRA_FIELDS)
-    history_cache = results / "history-reports.json"
-    if history_cache.exists():
-        import history_check
-        history_check.apply_to_workbook(output, history_check.load_cache(history_cache))
+    with TemporaryDirectory(dir=output.parent, prefix=f".{output.stem}-") as directory:
+        staged = Path(directory) / output.name
+        base.write_workbook(staged, cars, makes, extra_fields=EXTRA_FIELDS)
+        if history_records is not None:
+            history_check.apply_to_workbook(staged, history_records)
+        staged.replace(output)
     return selected_count, len(cars)
 
 

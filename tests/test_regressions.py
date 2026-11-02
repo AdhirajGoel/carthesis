@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""Offline checks for report identity and shared credential loading."""
+"""Offline regressions for report identity, comparison exports, and workbook safety."""
 import argparse
+from copy import deepcopy
 import json
 from pathlib import Path
 import sys
@@ -11,6 +12,14 @@ from unittest.mock import Mock, patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import history_check as history
 import vin_tools
+import carthesis
+import update_shortlist
+from add_deal_edge import add_deal_edge, calculate_scores
+from openpyxl import load_workbook
+from search import write_workbook
+from vehicle_reference import key, match_current_vehicle
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 class ReleaseRegressions(unittest.TestCase):
@@ -79,6 +88,153 @@ class ReleaseRegressions(unittest.TestCase):
                     vin_tools.run(args)
             self.assertNotIn('synthetic-key', output.read_text())
             self.assertEqual(json.loads(output.read_text())['vin'], self.vin)
+
+
+class WorkbookRegressions(unittest.TestCase):
+    def setUp(self):
+        temporary = TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        self.folder = Path(temporary.name)
+        self.data = json.loads((ROOT / 'examples/local-listings.json').read_text())
+        self.state = json.loads((ROOT / 'examples/comparison.json').read_text())
+        self.catalog = tuple(self.data['catalog'])
+
+    def workbook(self, name='candidates.xlsx', price=None):
+        rows = deepcopy(self.data['listings'])
+        if price is not None:
+            rows[0]['price'] = price
+        path = self.folder / name
+        write_workbook(path, rows, ('Example',))
+        return path
+
+    def test_invalid_export_preserves_saved_comparison(self):
+        workbook = self.workbook(price=28000)
+        for index, change, message in [(2, {'payment': 550}, 'contractual minimum'), (0, {'mpg': 0}, 'MPG')]:
+            with self.subTest(change=change):
+                state = deepcopy(self.state)
+                state['vehicles'][index].update(change)
+                saved = self.folder / 'comparison.json'
+                saved.write_text(json.dumps(state))
+                before = saved.read_bytes()
+                with self.assertRaisesRegex(ValueError, message):
+                    carthesis.export_comparison(workbook, saved, saved)
+                self.assertEqual(saved.read_bytes(), before)
+
+    def test_unavailable_validator_preserves_saved_comparison(self):
+        workbook = self.workbook(price=28000)
+        saved = self.folder / 'comparison.json'
+        saved.write_text(json.dumps(self.state))
+        before = saved.read_bytes()
+        with patch.object(carthesis.subprocess, 'run', side_effect=FileNotFoundError('Node unavailable')):
+            with self.assertRaisesRegex(OSError, 'Node unavailable'):
+                carthesis.export_comparison(workbook, saved, saved)
+        self.assertEqual(saved.read_bytes(), before)
+
+    def test_valid_same_file_export_keeps_buyer_settings(self):
+        workbook = self.workbook(price=28000)
+        self.state.update(enabled=['purchase', 'fuel'], preferencePremium=2000)
+        self.state['vehicles'][2]['payment'] = 600
+        saved = self.folder / 'comparison.json'
+        saved.write_text(json.dumps(self.state))
+        carthesis.export_comparison(workbook, saved, saved)
+        result = json.loads(saved.read_text())
+        self.assertEqual(result['vehicles'][2]['price'], 28000)
+        self.assertEqual(result['vehicles'][2]['payment'], 600)
+        self.assertEqual(result['enabled'], ['purchase', 'fuel'])
+        self.assertEqual(result['preferencePremium'], 2000)
+
+    def test_conflicting_sheet_inputs_preserve_workbook(self):
+        for field, value in [('price', 24000), ('body_type', 'SUV'), ('seller', 'Changed dealer'), ('miles', 41000)]:
+            with self.subTest(field=field):
+                path = self.workbook()
+                book = load_workbook(path)
+                sheet = book['Example']
+                headers = [cell.value for cell in sheet[1]]
+                sheet.cell(2, headers.index(field) + 1).value = value
+                book.save(path)
+                book.close()
+                before = path.read_bytes()
+                with self.assertRaisesRegex(ValueError, 'Conflicting.*VIN'):
+                    add_deal_edge(path, catalog=self.catalog, run_year=self.data['run_year'])
+                self.assertEqual(path.read_bytes(), before)
+
+    def test_conflicting_scored_workbook_cannot_replace_comparison(self):
+        path = self.workbook()
+        add_deal_edge(path, catalog=self.catalog, run_year=self.data['run_year'])
+        book = load_workbook(path)
+        sheet = book['Example']
+        headers = [cell.value for cell in sheet[1]]
+        sheet.cell(2, headers.index('price') + 1).value = 24000
+        book.save(path)
+        book.close()
+        saved = self.folder / 'comparison.json'
+        saved.write_text(json.dumps(self.state))
+        before = saved.read_bytes()
+        with self.assertRaisesRegex(ValueError, 'Conflicting.*VIN'):
+            carthesis.export_comparison(path, saved, saved)
+        self.assertEqual(saved.read_bytes(), before)
+
+    def test_shortlist_flags_can_differ_without_invalidating_score(self):
+        path = self.workbook()
+        book = load_workbook(path)
+        book['Example']['A2'] = 1
+        book.save(path)
+        book.close()
+        add_deal_edge(path, catalog=self.catalog, run_year=self.data['run_year'])
+        book = load_workbook(path)
+        try:
+            for name in ('All', 'Example'):
+                sheet = book[name]
+                headers = [cell.value for cell in sheet[1]]
+                self.assertEqual(sheet.cell(2, headers.index('deal_edge_pct') + 1).value, 3.7)
+            self.assertEqual(book['Example']['A2'].value, 1)
+        finally:
+            book.close()
+
+    def shortlist(self):
+        car = dict(self.data['listings'][0], make='Honda', shortlist=1)
+        write_workbook(self.folder / 'candidates-Master.xlsx', [car], ('Honda',))
+        path = self.folder / 'Shortlist.xlsx'
+        write_workbook(path, [car], ('Honda',))
+        history.apply_to_workbook(path, {car['vin']: history.outcome('not_provided', 'Synthetic saved evidence')})
+        return path
+
+    def test_malformed_history_preserves_shortlist(self):
+        path = self.shortlist()
+        before = path.read_bytes()
+        (self.folder / 'history-reports.json').write_text('{')
+        with self.assertRaisesRegex(RuntimeError, 'Cannot read'):
+            update_shortlist.rebuild(self.folder, path)
+        self.assertEqual(path.read_bytes(), before)
+
+    def test_failed_history_enrichment_preserves_shortlist(self):
+        path = self.shortlist()
+        before = path.read_bytes()
+        history.save_cache(self.folder / 'history-reports.json', {})
+        with patch.object(history, 'apply_to_workbook', side_effect=OSError('Synthetic save failure')):
+            with self.assertRaisesRegex(OSError, 'Synthetic save failure'):
+                update_shortlist.rebuild(self.folder, path)
+        self.assertEqual(path.read_bytes(), before)
+        self.assertEqual(sorted(p.name for p in self.folder.iterdir()),
+                         ['Shortlist.xlsx', 'candidates-Master.xlsx', 'history-reports.json'])
+
+    def test_incompatible_or_missing_body_cannot_claim_local_score(self):
+        for body in ('SUV', 'Hatchback', '', None, 'unknown'):
+            with self.subTest(body=body):
+                rows = deepcopy(self.data['listings'])
+                rows[0]['body_type'] = body
+                self.assertIsNone(match_current_vehicle(rows[0], self.catalog))
+                scores = calculate_scores([{key(k): v for k, v in row.items()} for row in rows],
+                                          self.catalog, self.data['run_year'])
+                self.assertIsNone(scores[rows[0]['vin']])
+
+    def test_known_body_evidence_still_matches(self):
+        for body in ('Sedan', '4-Door Sedan'):
+            car = dict(self.data['listings'][0], body_type=body)
+            self.assertEqual(match_current_vehicle(car, self.catalog)['body'], 'Sedan')
+        suv = dict(self.catalog[0], body='SUV')
+        car = dict(self.data['listings'][0], body_type='SUV')
+        self.assertEqual(match_current_vehicle(car, (suv,))['body'], 'SUV')
 
 
 if __name__ == '__main__':

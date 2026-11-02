@@ -145,16 +145,17 @@ def _current_power(value) -> str:
 
 
 def _body_candidates(candidates: list[dict], model: str, body_type) -> list[dict]:
-    bodies = {key(row["body"]) for row in candidates}
-    if len(bodies) <= 1:
-        return candidates
     body = key(body_type)
+    if not body:
+        return []
     if "hatch" in body:
         target = "hatchback"
     elif "sedan" in body or (model == "civic" and "coupe" in body):
         target = "sedan"
+    elif model == "outback" and "wagon" in body:
+        target = "suv"
     else:
-        return []
+        target = body
     return [row for row in candidates if key(row["body"]) == target]
 
 

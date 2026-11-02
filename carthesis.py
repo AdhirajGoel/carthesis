@@ -5,6 +5,7 @@ import argparse
 import json
 from pathlib import Path
 import shutil
+import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parent
@@ -23,13 +24,15 @@ def initialize() -> None:
 
 def export_comparison(workbook: Path, assumptions: Path, output: Path) -> None:
     from openpyxl import load_workbook
+    from add_deal_edge import validate_scoring_inputs
     from search import atomic_text
     state = json.loads(assumptions.read_text())
-    if state.get('version') != 1 or not isinstance(state.get('vehicles'), list):
+    if not isinstance(state, dict) or state.get('version') != 1 or not isinstance(state.get('vehicles'), list):
         raise ValueError('Use the version 1 comparison format in examples/comparison.json')
     book = load_workbook(workbook, read_only=True, data_only=True)
     records = {}
     try:
+        validate_scoring_inputs(book)
         # Brand sheets contain actual shortlist values; All may contain uncached formulas.
         sheets = [s for s in book.worksheets if s.title != 'All'] or book.worksheets
         for sheet in sheets:
@@ -48,6 +51,8 @@ def export_comparison(workbook: Path, assumptions: Path, output: Path) -> None:
         book.close()
     matched = 0
     for vehicle in state['vehicles']:
+        if not isinstance(vehicle, dict):
+            raise ValueError('Each comparison vehicle must be an object')
         vin = vehicle.get('vin')
         if not vin:
             continue  # New-car quotes or manually entered comparisons do not require a listing VIN.
@@ -63,8 +68,19 @@ def export_comparison(workbook: Path, assumptions: Path, output: Path) -> None:
         matched += 1
     if not matched:
         raise ValueError('Set a comparison vehicle’s vin to a candidate VIN before exporting')
-    output.parent.mkdir(parents=True, exist_ok=True)
-    atomic_text(output, json.dumps(state, indent=2, allow_nan=False) + '\n')
+    payload = json.dumps(state, indent=2, allow_nan=False) + '\n'
+    # Use the browser's model so a refreshed price cannot save an invalid loan.
+    validation = subprocess.run([
+        'node', '-e',
+        "try { const M=require(process.argv[1]); "
+        "const s=M.validate(JSON.parse(require('node:fs').readFileSync(0,'utf8'))); "
+        "s.vehicles.forEach(v=>M.compute(v,s.assumptions,s.enabled)); "
+        "} catch(error) { process.stderr.write(error.message); process.exitCode=1; }",
+        str(ROOT / 'web/model.js'),
+    ], input=payload, text=True, capture_output=True)
+    if validation.returncode:
+        raise ValueError(f'Comparison rejected: {validation.stderr.strip()}')
+    atomic_text(output, payload)
     print(f'Updated {matched} vehicle(s); open {output.name} using Open comparison JSON in the app.')
 
 

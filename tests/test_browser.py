@@ -110,6 +110,50 @@ def check_regressions(page, folder):
         assert saved['assumptions']['daily'] == miles
         assert saved['assumptions']['years'] == horizon
 
+    # Committing a live view field must preserve its click and keyboard targets.
+    reset()
+    tab('Loan & prepay')
+    page.get_by_label('Loan vehicle', exact=True).select_option('used-gas')
+    payment = page.get_by_label('Monthly payment ($)', exact=True)
+    minimum = page.get_by_role('button', name='Use contractual minimum', exact=True)
+    expected_minimum = payment.input_value()
+    original_loan = page.locator('#view table').inner_text()
+    payment.fill('600')
+    minimum.click()
+    assert payment.input_value() == expected_minimum, 'A single minimum click must apply the reset'
+    assert page.locator('#view table').inner_text() == original_loan
+    payment.fill('650')
+    payment.press('Tab')
+    assert minimum.evaluate('el => el === document.activeElement'), 'Tab must reach the minimum button'
+    assert page.locator('#view table').inner_text() != original_loan
+    page.keyboard.press('Enter')
+    assert payment.input_value() == expected_minimum
+    # Repeated edits must use the current validated vehicle, including after a sidebar edit.
+    for amount in [600, 650]:
+        payment.fill(str(amount))
+        payment.press('Tab')
+        assert minimum.evaluate('el => el === document.activeElement')
+    saved = save_comparison(page, folder / 'live-payment.json')
+    assert next(v for v in saved['vehicles'] if v['id'] == 'used-gas')['payment'] == 650
+    page.get_by_label('Down payment ($)', exact=True).fill('6000')
+    payment.click()
+    assert payment.evaluate('el => el === document.activeElement')
+    minimum.click()
+    assert float(payment.input_value()) < float(expected_minimum)
+    saved = save_comparison(page, folder / 'minimum-payment.json')
+    assert 'payment' not in next(v for v in saved['vehicles'] if v['id'] == 'used-gas')
+
+    tab('APR crossover')
+    premium = page.get_by_label('Extra savings required to choose used ($)', exact=True)
+    original_cross = page.locator('#view table').first.inner_text()
+    for amount in [2000, 3500]:
+        premium.fill(str(amount))
+        premium.press('Shift+Tab')
+        assert page.get_by_label('New vehicle', exact=True).evaluate('el => el === document.activeElement')
+        assert page.locator('#view table').first.inner_text() != original_cross
+    saved = save_comparison(page, folder / 'live-preference.json')
+    assert saved['preferencePremium'] == 3500
+
     # Both settings must survive reload and replace another session's settings.
     reset()
     page.get_by_role('button', name='resale', exact=True).click()

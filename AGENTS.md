@@ -4,7 +4,7 @@ You are helping a buyer set up and use CarThesis on macOS. Read README.md, docs/
 
 ## 1. Establish a working local demo
 
-1. Resolve the repository directory. Check Python 3.10+ and Node.js 18+ with their version commands. Node is for verification; the browser app has no build step. If either is missing, explain the specific prerequisite and obtain approval before installing system software.
+1. Resolve the repository directory. Check Python 3.10+ and Node.js 18+ with their version commands. Node validates workbook exports and runs verification; the browser app has no build step. If either is missing, explain the specific prerequisite and obtain approval before installing system software.
 2. Create `.venv` if absent and install `requirements.txt` there. Never modify system Python. Run `.venv/bin/python tests/run_checks.py`, then `.venv/bin/python carthesis.py init`. Initialization preserves existing files.
 3. Open `web/index.html` or the macOS launcher. The synthetic demo needs no account or API request. Confirm that the new, used, and hybrid examples display, that costs respond to edits, and that Save comparison produces a reusable JSON file. Do not infer live API success from this demo.
 

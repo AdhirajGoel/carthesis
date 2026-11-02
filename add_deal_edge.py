@@ -110,9 +110,26 @@ def _sheet_rows(sheet) -> list[dict]:
     if missing:
         raise ValueError(f"worksheet {sheet.title!r} is missing columns: {', '.join(missing)}")
     return [
-        {name: sheet.cell(row, column).value for name, column in headers.items()}
-        for row in range(2, sheet.max_row + 1)
+        {name: row[column - 1] for name, column in headers.items()}
+        for row in sheet.iter_rows(min_row=2, values_only=True)
     ]
+
+
+def validate_scoring_inputs(workbook) -> None:
+    """Reject duplicated VINs whose local-price evidence differs between rows."""
+    scoring_inputs = {}
+    fields = sorted(REQUIRED - {"vin"})
+    for sheet in workbook.worksheets:
+        if not {"vin", "price"} <= _headers(sheet).keys():
+            continue
+        for row in _sheet_rows(sheet):
+            vin = _vin(row.get("vin"))
+            if not vin:
+                continue
+            values = tuple(row.get(field) for field in fields)
+            if vin in scoring_inputs and scoring_inputs[vin] != values:
+                raise ValueError(f"Conflicting scoring inputs for VIN {vin} in {sheet.title!r}; reconcile its rows before continuing")
+            scoring_inputs[vin] = values
 
 
 def _prepared(row: dict, catalog: tuple[dict, ...], run_year: int, vin_counts: Counter):
@@ -254,6 +271,7 @@ def add_deal_edge(
         if "All" not in workbook.sheetnames:
             raise ValueError("candidate workbook has no 'All' worksheet")
         rows = _sheet_rows(workbook["All"])
+        validate_scoring_inputs(workbook)
         if catalog is None:
             catalog, _ = load_reference()
         scores = calculate_scores(rows, catalog, run_year if run_year is not None else _run_year(path))
