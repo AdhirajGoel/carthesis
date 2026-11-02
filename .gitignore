@@ -1,0 +1,13 @@
+/.venv/
+/__pycache__/
+**/__pycache__/
+*.pyc
+/.state/
+/data/*
+/results/*
+.env
+.env.*
+!.env.example
+*.session*
+.DS_Store
+/test-results/

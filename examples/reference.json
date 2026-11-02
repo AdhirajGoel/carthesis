@@ -1,0 +1,1255 @@
+{
+  "demo": false,
+  "reviewed_for_live": false,
+  "note": "Archived vehicle reference facts from August 2026. Recheck relevant trim prices and equipment before live comparisons.",
+  "catalog": [
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "Corolla",
+      "body": "Sedan",
+      "trim": "LE",
+      "powertrain": "Gas",
+      "drivetrain": "FWD",
+      "msrp": 23125
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "Corolla",
+      "body": "Hatchback",
+      "trim": "SE",
+      "powertrain": "Gas",
+      "drivetrain": "FWD",
+      "msrp": 24580
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "Mazda3",
+      "body": "Sedan",
+      "trim": "2.5 S",
+      "powertrain": "Gas",
+      "drivetrain": "FWD",
+      "msrp": 24650
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "Civic",
+      "body": "Sedan",
+      "trim": "LX",
+      "powertrain": "Gas",
+      "drivetrain": "FWD",
+      "msrp": 24695
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "Corolla",
+      "body": "Sedan",
+      "trim": "Hybrid LE",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD; AWD available",
+      "msrp": 24975
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "Corolla Cross",
+      "body": "SUV",
+      "trim": "L",
+      "powertrain": "Gas",
+      "drivetrain": "FWD; AWD available",
+      "msrp": 25235
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "Mazda3",
+      "body": "Sedan",
+      "trim": "2.5 S Select Sport",
+      "powertrain": "Gas",
+      "drivetrain": "FWD",
+      "msrp": 25540
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "Corolla",
+      "body": "Sedan",
+      "trim": "SE",
+      "powertrain": "Gas",
+      "drivetrain": "FWD",
+      "msrp": 25565
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "Mazda3",
+      "body": "Hatchback",
+      "trim": "2.5 S",
+      "powertrain": "Gas",
+      "drivetrain": "FWD",
+      "msrp": 25650
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "CX-30",
+      "body": "SUV",
+      "trim": "2.5 S",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 26375
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Impreza",
+      "body": "Hatchback",
+      "trim": "Sport",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 26595
+    },
+    {
+      "year": 2027,
+      "make": "Honda",
+      "model": "HR-V",
+      "body": "SUV",
+      "trim": "LX",
+      "powertrain": "Gas",
+      "drivetrain": "FWD; AWD available",
+      "msrp": 26600
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "Civic",
+      "body": "Sedan",
+      "trim": "Sport",
+      "powertrain": "Gas",
+      "drivetrain": "FWD",
+      "msrp": 26695
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "Mazda3",
+      "body": "Hatchback",
+      "trim": "2.5 S Select Sport",
+      "powertrain": "Gas",
+      "drivetrain": "FWD",
+      "msrp": 26840
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Crosstrek",
+      "body": "SUV",
+      "trim": "Base",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 26995
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "Corolla",
+      "body": "Hatchback",
+      "trim": "FX",
+      "powertrain": "Gas",
+      "drivetrain": "FWD",
+      "msrp": 27180
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "Mazda3",
+      "body": "Sedan",
+      "trim": "2.5 S Preferred",
+      "powertrain": "Gas",
+      "drivetrain": "FWD",
+      "msrp": 27290
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "Corolla",
+      "body": "Sedan",
+      "trim": "Hybrid SE",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD; AWD available",
+      "msrp": 27415
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "Corolla Cross",
+      "body": "SUV",
+      "trim": "LE",
+      "powertrain": "Gas",
+      "drivetrain": "FWD; AWD available",
+      "msrp": 27565
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "Corolla",
+      "body": "Hatchback",
+      "trim": "XSE",
+      "powertrain": "Gas",
+      "drivetrain": "FWD",
+      "msrp": 27575
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "Civic",
+      "body": "Hatchback",
+      "trim": "Sport",
+      "powertrain": "Gas",
+      "drivetrain": "FWD",
+      "msrp": 27895
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Crosstrek",
+      "body": "SUV",
+      "trim": "Premium",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 27995
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "CX-30",
+      "body": "SUV",
+      "trim": "2.5 S Select Sport",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 28060
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "Accord",
+      "body": "Sedan",
+      "trim": "LX",
+      "powertrain": "Turbo gas",
+      "drivetrain": "FWD",
+      "msrp": 28395
+    },
+    {
+      "year": 2027,
+      "make": "Honda",
+      "model": "HR-V",
+      "body": "SUV",
+      "trim": "Sport",
+      "powertrain": "Gas",
+      "drivetrain": "FWD; AWD available",
+      "msrp": 28400
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "Mazda3",
+      "body": "Hatchback",
+      "trim": "2.5 S Preferred",
+      "powertrain": "Gas",
+      "drivetrain": "FWD",
+      "msrp": 28640
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "Corolla",
+      "body": "Sedan",
+      "trim": "XSE",
+      "powertrain": "Gas",
+      "drivetrain": "FWD",
+      "msrp": 28840
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "Corolla",
+      "body": "Sedan",
+      "trim": "Hybrid XLE",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD",
+      "msrp": 29340
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "Civic",
+      "body": "Sedan",
+      "trim": "Sport Hybrid",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD",
+      "msrp": 29395
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Impreza",
+      "body": "Hatchback",
+      "trim": "RS",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 29495
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "Corolla Cross",
+      "body": "SUV",
+      "trim": "Hybrid S",
+      "powertrain": "Hybrid",
+      "drivetrain": "AWD",
+      "msrp": 29595
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "Camry",
+      "body": "Sedan",
+      "trim": "LE",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD; AWD available",
+      "msrp": 29600
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "CX-30",
+      "body": "SUV",
+      "trim": "2.5 S Preferred",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 29690
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "Mazda3",
+      "body": "Sedan",
+      "trim": "2.5 S Carbon Edition",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 29815
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "CX-5",
+      "body": "SUV",
+      "trim": "2.5 S",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 29990
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Forester",
+      "body": "SUV",
+      "trim": "Base",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 29995
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "Corolla Cross",
+      "body": "SUV",
+      "trim": "XLE",
+      "powertrain": "Gas",
+      "drivetrain": "FWD; AWD available",
+      "msrp": 30160
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "CX-30",
+      "body": "SUV",
+      "trim": "2.5 S Aire Edition",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 30250
+    },
+    {
+      "year": 2027,
+      "make": "Honda",
+      "model": "HR-V",
+      "body": "SUV",
+      "trim": "EX-L",
+      "powertrain": "Gas",
+      "drivetrain": "FWD; AWD available",
+      "msrp": 30450
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "Civic",
+      "body": "Hatchback",
+      "trim": "Sport Hybrid",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD",
+      "msrp": 30595
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Crosstrek",
+      "body": "SUV",
+      "trim": "Sport",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 30625
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "Accord",
+      "body": "Sedan",
+      "trim": "SE",
+      "powertrain": "Turbo gas",
+      "drivetrain": "FWD",
+      "msrp": 30695
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "Corolla Cross",
+      "body": "SUV",
+      "trim": "Hybrid SE",
+      "powertrain": "Hybrid",
+      "drivetrain": "AWD",
+      "msrp": 30915
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "CR-V",
+      "body": "SUV",
+      "trim": "LX",
+      "powertrain": "Turbo gas",
+      "drivetrain": "FWD; AWD available",
+      "msrp": 30920
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "Mazda3",
+      "body": "Hatchback",
+      "trim": "2.5 S Carbon Edition",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 30965
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "CX-30",
+      "body": "SUV",
+      "trim": "2.5 S Carbon Edition",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 31430
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "Civic",
+      "body": "Sedan",
+      "trim": "Si",
+      "powertrain": "Turbo gas",
+      "drivetrain": "FWD",
+      "msrp": 31495
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "Mazda3",
+      "body": "Hatchback",
+      "trim": "2.5 S Premium (6MT)",
+      "powertrain": "Gas",
+      "drivetrain": "FWD",
+      "msrp": 31650
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "RAV4",
+      "body": "SUV",
+      "trim": "LE",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD or AWD",
+      "msrp": 31900
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "CX-5",
+      "body": "SUV",
+      "trim": "2.5 S Select",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 31990
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Forester",
+      "body": "SUV",
+      "trim": "Premium",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 31995
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "Camry",
+      "body": "Sedan",
+      "trim": "SE",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD; AWD available",
+      "msrp": 32100
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "Civic",
+      "body": "Sedan",
+      "trim": "Sport Touring Hybrid",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD",
+      "msrp": 32395
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Crosstrek",
+      "body": "SUV",
+      "trim": "Limited",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 32995
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "Camry",
+      "body": "Sedan",
+      "trim": "Nightshade",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD; AWD available",
+      "msrp": 33100
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "CR-V",
+      "body": "SUV",
+      "trim": "EX",
+      "powertrain": "Turbo gas",
+      "drivetrain": "FWD; AWD available",
+      "msrp": 33150
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "Civic",
+      "body": "Hatchback",
+      "trim": "Sport Touring Hybrid",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD",
+      "msrp": 33595
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "Corolla Cross",
+      "body": "SUV",
+      "trim": "Hybrid XSE",
+      "powertrain": "Hybrid",
+      "drivetrain": "AWD",
+      "msrp": 33630
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "CX-30",
+      "body": "SUV",
+      "trim": "2.5 S Premium",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 33640
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "Accord",
+      "body": "Sedan",
+      "trim": "Sport Hybrid",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD",
+      "msrp": 33795
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Crosstrek",
+      "body": "SUV",
+      "trim": "Wilderness",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 33795
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Crosstrek",
+      "body": "SUV",
+      "trim": "Sport Hybrid",
+      "powertrain": "Hybrid",
+      "drivetrain": "AWD",
+      "msrp": 33995
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "CX-5",
+      "body": "SUV",
+      "trim": "2.5 S Preferred",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 34250
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "CX-30",
+      "body": "SUV",
+      "trim": "2.5 Turbo Aire Edition",
+      "powertrain": "Turbo gas",
+      "drivetrain": "AWD",
+      "msrp": 34410
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "RAV4",
+      "body": "SUV",
+      "trim": "SE",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD or AWD",
+      "msrp": 34700
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Forester",
+      "body": "SUV",
+      "trim": "Premium Hybrid",
+      "powertrain": "Hybrid",
+      "drivetrain": "AWD",
+      "msrp": 34730
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Forester",
+      "body": "SUV",
+      "trim": "Sport",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 34795
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "Camry",
+      "body": "Sedan",
+      "trim": "XLE",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD; AWD available",
+      "msrp": 34800
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Crosstrek",
+      "body": "SUV",
+      "trim": "Limited Hybrid",
+      "powertrain": "Hybrid",
+      "drivetrain": "AWD",
+      "msrp": 34995
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Outback",
+      "body": "SUV",
+      "trim": "Premium",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 34995
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "Accord",
+      "body": "Sedan",
+      "trim": "EX-L Hybrid",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD",
+      "msrp": 35095
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "CR-V",
+      "body": "SUV",
+      "trim": "EX-L",
+      "powertrain": "Turbo gas",
+      "drivetrain": "FWD; AWD available",
+      "msrp": 35400
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "Accord",
+      "body": "Sedan",
+      "trim": "Sport-L Hybrid",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD",
+      "msrp": 35495
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "CR-V",
+      "body": "SUV",
+      "trim": "Sport Hybrid",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD; AWD available",
+      "msrp": 35630
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Forester",
+      "body": "SUV",
+      "trim": "Limited",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 35995
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "Camry",
+      "body": "Sedan",
+      "trim": "XSE",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD; AWD available",
+      "msrp": 36000
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "RAV4",
+      "body": "SUV",
+      "trim": "XLE Premium",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD or AWD",
+      "msrp": 36100
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "CX-5",
+      "body": "SUV",
+      "trim": "2.5 S Premium",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 36900
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "Mazda3",
+      "body": "Sedan",
+      "trim": "2.5 Turbo Premium Plus",
+      "powertrain": "Turbo gas",
+      "drivetrain": "AWD",
+      "msrp": 36940
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Forester",
+      "body": "SUV",
+      "trim": "Wilderness",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 36995
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "CX-30",
+      "body": "SUV",
+      "trim": "2.5 Turbo Premium Plus",
+      "powertrain": "Turbo gas",
+      "drivetrain": "AWD",
+      "msrp": 37900
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Forester",
+      "body": "SUV",
+      "trim": "Sport Hybrid",
+      "powertrain": "Hybrid",
+      "drivetrain": "AWD",
+      "msrp": 37930
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "Mazda3",
+      "body": "Hatchback",
+      "trim": "2.5 Turbo Premium Plus",
+      "powertrain": "Turbo gas",
+      "drivetrain": "AWD",
+      "msrp": 38090
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "CR-V",
+      "body": "SUV",
+      "trim": "Sport-L Hybrid",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD; AWD available",
+      "msrp": 38725
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "CR-V",
+      "body": "SUV",
+      "trim": "TrailSport Hybrid",
+      "powertrain": "Hybrid",
+      "drivetrain": "AWD",
+      "msrp": 38800
+    },
+    {
+      "year": 2026,
+      "make": "Mazda",
+      "model": "CX-5",
+      "body": "SUV",
+      "trim": "2.5 S Premium Plus",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 38990
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Forester",
+      "body": "SUV",
+      "trim": "Limited Hybrid",
+      "powertrain": "Hybrid",
+      "drivetrain": "AWD",
+      "msrp": 38995
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "Accord",
+      "body": "Sedan",
+      "trim": "Touring Hybrid",
+      "powertrain": "Hybrid",
+      "drivetrain": "FWD",
+      "msrp": 39495
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "RAV4",
+      "body": "SUV",
+      "trim": "Woodland",
+      "powertrain": "Hybrid",
+      "drivetrain": "AWD",
+      "msrp": 39900
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Forester",
+      "body": "SUV",
+      "trim": "Touring",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 39995
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "RAV4",
+      "body": "SUV",
+      "trim": "XSE",
+      "powertrain": "Hybrid",
+      "drivetrain": "AWD",
+      "msrp": 41300
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "RAV4",
+      "body": "SUV",
+      "trim": "SE",
+      "powertrain": "Plug-in hybrid",
+      "drivetrain": "AWD",
+      "msrp": 41500
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Forester",
+      "body": "SUV",
+      "trim": "Touring Hybrid",
+      "powertrain": "Hybrid",
+      "drivetrain": "AWD",
+      "msrp": 41545
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Outback",
+      "body": "SUV",
+      "trim": "Limited",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 41715
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "CR-V",
+      "body": "SUV",
+      "trim": "Sport Touring Hybrid",
+      "powertrain": "Hybrid",
+      "drivetrain": "AWD",
+      "msrp": 42550
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "RAV4",
+      "body": "SUV",
+      "trim": "Limited",
+      "powertrain": "Hybrid",
+      "drivetrain": "AWD",
+      "msrp": 43300
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Outback",
+      "body": "SUV",
+      "trim": "Limited XT",
+      "powertrain": "Turbo gas",
+      "drivetrain": "AWD",
+      "msrp": 44365
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Outback",
+      "body": "SUV",
+      "trim": "Wilderness",
+      "powertrain": "Turbo gas",
+      "drivetrain": "AWD",
+      "msrp": 44995
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "RAV4",
+      "body": "SUV",
+      "trim": "Woodland",
+      "powertrain": "Plug-in hybrid",
+      "drivetrain": "AWD",
+      "msrp": 45300
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Outback",
+      "body": "SUV",
+      "trim": "Touring",
+      "powertrain": "Gas",
+      "drivetrain": "AWD",
+      "msrp": 45395
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "RAV4",
+      "body": "SUV",
+      "trim": "XSE",
+      "powertrain": "Plug-in hybrid",
+      "drivetrain": "AWD",
+      "msrp": 47200
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "Civic",
+      "body": "Hatchback",
+      "trim": "Type R",
+      "powertrain": "Turbo gas",
+      "drivetrain": "FWD",
+      "msrp": 47395
+    },
+    {
+      "year": 2026,
+      "make": "Subaru",
+      "model": "Outback",
+      "body": "SUV",
+      "trim": "Touring XT",
+      "powertrain": "Turbo gas",
+      "drivetrain": "AWD",
+      "msrp": 47995
+    },
+    {
+      "year": 2026,
+      "make": "Toyota",
+      "model": "RAV4",
+      "body": "SUV",
+      "trim": "GR SPORT",
+      "powertrain": "Plug-in hybrid",
+      "drivetrain": "AWD",
+      "msrp": 48500
+    },
+    {
+      "year": 2026,
+      "make": "Honda",
+      "model": "CR-V",
+      "body": "SUV",
+      "trim": "e:FCEV",
+      "powertrain": "Fuel-cell plug-in EV",
+      "drivetrain": "FWD",
+      "msrp": 50000
+    }
+  ],
+  "carplay": [
+    {
+      "make": "Subaru",
+      "model": "Impreza",
+      "years": "2017+",
+      "body": "All",
+      "qualifying": "All trims"
+    },
+    {
+      "make": "Subaru",
+      "model": "Crosstrek",
+      "years": "2018+",
+      "body": "All",
+      "qualifying": "All trims"
+    },
+    {
+      "make": "Subaru",
+      "model": "Forester",
+      "years": "2019+",
+      "body": "All",
+      "qualifying": "All trims"
+    },
+    {
+      "make": "Subaru",
+      "model": "Outback",
+      "years": "2018+",
+      "body": "All",
+      "qualifying": "All trims"
+    },
+    {
+      "make": "Mazda",
+      "model": "CX-30",
+      "years": "2020",
+      "body": "SUV",
+      "qualifying": "Select, Preferred, Premium"
+    },
+    {
+      "make": "Mazda",
+      "model": "CX-30",
+      "years": "2021+",
+      "body": "SUV",
+      "qualifying": "All trims"
+    },
+    {
+      "make": "Mazda",
+      "model": "CX-5",
+      "years": "2019\u20132020",
+      "body": "SUV",
+      "qualifying": "Touring and above"
+    },
+    {
+      "make": "Mazda",
+      "model": "CX-5",
+      "years": "2021+",
+      "body": "SUV",
+      "qualifying": "All trims"
+    },
+    {
+      "make": "Mazda",
+      "model": "Mazda3",
+      "years": "2019\u20132020",
+      "body": "Hatchback",
+      "qualifying": "All trims"
+    },
+    {
+      "make": "Mazda",
+      "model": "Mazda3",
+      "years": "2019\u20132020",
+      "body": "Sedan",
+      "qualifying": "Select and above"
+    },
+    {
+      "make": "Mazda",
+      "model": "Mazda3",
+      "years": "2021\u20132022",
+      "body": "Sedan & Hatchback",
+      "qualifying": "2.5 S and above"
+    },
+    {
+      "make": "Mazda",
+      "model": "Mazda3",
+      "years": "2023+",
+      "body": "Sedan & Hatchback",
+      "qualifying": "All trims"
+    },
+    {
+      "make": "Honda",
+      "model": "Civic",
+      "years": "2019",
+      "body": "Sedan / Coupe",
+      "qualifying": "Sport and above"
+    },
+    {
+      "make": "Honda",
+      "model": "Civic",
+      "years": "2019",
+      "body": "Hatchback",
+      "qualifying": "EX and above"
+    },
+    {
+      "make": "Honda",
+      "model": "Civic",
+      "years": "2020\u20132021",
+      "body": "All body styles",
+      "qualifying": "Sport and above"
+    },
+    {
+      "make": "Honda",
+      "model": "Civic",
+      "years": "2022+",
+      "body": "Sedan & Hatchback",
+      "qualifying": "All trims"
+    },
+    {
+      "make": "Honda",
+      "model": "Accord",
+      "years": "2019\u20132020",
+      "body": "Sedan",
+      "qualifying": "Sport and above"
+    },
+    {
+      "make": "Honda",
+      "model": "Accord",
+      "years": "2021+",
+      "body": "Sedan",
+      "qualifying": "All trims"
+    },
+    {
+      "make": "Honda",
+      "model": "HR-V",
+      "years": "2019\u20132022",
+      "body": "SUV",
+      "qualifying": "Sport and above"
+    },
+    {
+      "make": "Honda",
+      "model": "HR-V",
+      "years": "2023+",
+      "body": "SUV",
+      "qualifying": "All trims"
+    },
+    {
+      "make": "Honda",
+      "model": "CR-V",
+      "years": "2019\u20132020",
+      "body": "SUV",
+      "qualifying": "EX and above"
+    },
+    {
+      "make": "Honda",
+      "model": "CR-V",
+      "years": "2021\u20132022",
+      "body": "SUV",
+      "qualifying": "Special Edition and above; all Hybrid trims"
+    },
+    {
+      "make": "Honda",
+      "model": "CR-V",
+      "years": "2023+",
+      "body": "SUV",
+      "qualifying": "All trims"
+    },
+    {
+      "make": "Toyota",
+      "model": "Corolla",
+      "years": "2019",
+      "body": "Hatchback",
+      "qualifying": "All trims"
+    },
+    {
+      "make": "Toyota",
+      "model": "Corolla",
+      "years": "2020+",
+      "body": "Sedan & Hatchback",
+      "qualifying": "All trims"
+    },
+    {
+      "make": "Toyota",
+      "model": "Camry",
+      "years": "2019+",
+      "body": "Sedan",
+      "qualifying": "All trims"
+    },
+    {
+      "make": "Toyota",
+      "model": "RAV4",
+      "years": "2019+",
+      "body": "SUV",
+      "qualifying": "All trims"
+    },
+    {
+      "make": "Toyota",
+      "model": "Corolla Cross",
+      "years": "2022+",
+      "body": "SUV",
+      "qualifying": "All trims"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "demo": true,
+  "catalog": [
+    {
+      "year": 2026,
+      "make": "Example",
+      "model": "Comet",
+      "body": "Sedan",
+      "trim": "Base",
+      "powertrain": "Gas",
+      "drivetrain": "FWD",
+      "msrp": 30000
+    }
+  ],
+  "carplay": []
+}
