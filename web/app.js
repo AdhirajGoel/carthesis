@@ -18,7 +18,7 @@ function field(label,value,change,options={}){
       change(Number(input.value));
       const checked=M.validate(state);
       checked.vehicles.forEach(v=>M.compute(v,checked.assumptions,checked.enabled));
-      state=checked;controls();render();
+      state=checked;render();
     }catch(e){state=previous;controls();render();error(e);}
   };return wrap;
 }

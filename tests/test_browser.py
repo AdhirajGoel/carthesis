@@ -92,6 +92,24 @@ def check_regressions(page, folder):
         page.get_by_role('button', name='Reset synthetic demo').click()
         tab('Overview')
 
+    # A blur commit must not replace the sidebar input the buyer moves to next.
+    reset()
+    daily = page.get_by_label('Miles per day', exact=True)
+    years = page.get_by_label('Ownership years', exact=True)
+    for miles, horizon, move in [(42, 4, 'keyboard'), (43, 6, 'mouse')]:
+        daily.fill(str(miles))
+        if move == 'keyboard':
+            daily.press('Tab')
+        else:
+            years.click()
+        assert years.evaluate('el => el === document.activeElement'), move
+        page.keyboard.press('ControlOrMeta+A')
+        page.keyboard.insert_text(str(horizon))
+        page.keyboard.press('Tab')
+        saved = save_comparison(page, folder / f'sequential-{move}.json')
+        assert saved['assumptions']['daily'] == miles
+        assert saved['assumptions']['years'] == horizon
+
     # Both settings must survive reload and replace another session's settings.
     reset()
     page.get_by_role('button', name='resale', exact=True).click()
