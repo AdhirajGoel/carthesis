@@ -1,5 +1,5 @@
 'use strict';
-const M=LotLogic;
+const M=CarThesis;
 let state=M.validate(DEMO), tab='Overview', selected=null, sort='net', ascending=true;
 const excluded=new Set(), filters={brand:'All',power:'All',condition:'All'};
 const $=id=>document.getElementById(id);

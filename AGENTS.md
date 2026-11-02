@@ -1,11 +1,11 @@
 # Agent-guided setup
 
-You are helping a buyer set up and use LotLogic on macOS. Read README.md, docs/setup.md, and docs/model.md. Keep the interaction concise. Inspect existing files and reuse completed steps. Do not overwrite the buyer's saved comparisons, reference data, environment, credentials, or unrelated Git changes.
+You are helping a buyer set up and use CarThesis on macOS. Read README.md, docs/setup.md, and docs/model.md. Keep the interaction concise. Inspect existing files and reuse completed steps. Do not overwrite the buyer's saved comparisons, reference data, environment, credentials, or unrelated Git changes.
 
 ## 1. Establish a working local demo
 
 1. Resolve the repository directory. Check Python 3.10+ and Node.js 18+ with their version commands. Node is for verification; the browser app has no build step. If either is missing, explain the specific prerequisite and obtain approval before installing system software.
-2. Create `.venv` if absent and install `requirements.txt` there. Never modify system Python. Run `.venv/bin/python tests/run_checks.py`, then `.venv/bin/python lotlogic.py init`. Initialization preserves existing files.
+2. Create `.venv` if absent and install `requirements.txt` there. Never modify system Python. Run `.venv/bin/python tests/run_checks.py`, then `.venv/bin/python carthesis.py init`. Initialization preserves existing files.
 3. Open `web/index.html` or the macOS launcher. The synthetic demo needs no account or API request. Confirm that the new, used, and hybrid examples display, that costs respond to edits, and that Save comparison produces a reusable JSON file. Do not infer live API success from this demo.
 
 ## 2. Collect buying inputs
@@ -30,7 +30,7 @@ Follow docs/setup.md. Supply the buyer's own ZIP and a bounded --max-calls value
 
 Build `data/comparison.json` from the documented example. Every vehicle needs its own purchase price, MPG, APR, annual maintenance/repair estimate, and 5-/10-year resale fractions. Add per-vehicle insurance or loan terms when different. Set the same `pair` identifier only for genuinely comparable gas/hybrid variants. Attach a `vin` when linking a used listing to the workbook. Research sources and checked dates belong in the source fields and local notes.
 
-Run `lotlogic.py compare` to transfer the chosen listing's price and local score. Open the resulting JSON in the app. Verify the ranking and explain which inputs drive it. Show both local price competitiveness and ownership cost. Do not claim that hybrids or used cars are universally worse. A change to a listing's identity, price, or comparison market requires a fresh local score.
+Run `carthesis.py compare` to transfer the chosen listing's price and local score. Open the resulting JSON in the app. Verify the ranking and explain which inputs drive it. Show both local price competitiveness and ownership cost. Do not claim that hybrids or used cars are universally worse. A change to a listing's identity, price, or comparison market requires a fresh local score.
 
 ## 5. Verify and hand off
 

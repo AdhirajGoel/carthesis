@@ -11,7 +11,7 @@ import os
 import math
 
 
-REFERENCE_WORKBOOK = Path(os.environ.get("LOTLOGIC_REFERENCE", str(Path(__file__).resolve().parent / "data" / "reference.json")))
+REFERENCE_WORKBOOK = Path(os.environ.get("CARTHESIS_REFERENCE", str(Path(__file__).resolve().parent / "data" / "reference.json")))
 
 
 def key(value) -> str:

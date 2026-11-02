@@ -81,5 +81,5 @@
     return {kind:'rate',rate:(low+high)/2};
   }
   const api={defaults,components,validate,minimum,loan,growth,retained,compute,hybrids,financingMargin,crossover};
-  if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LotLogic=api;
+  if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.CarThesis=api;
 })(globalThis);

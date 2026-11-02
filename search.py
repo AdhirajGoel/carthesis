@@ -44,7 +44,7 @@ PRICE_MIN = 10_000
 PRICE_MAX = 25_000
 MILES_MAX = 60_000
 YEAR_MIN = 2022
-ZIP = os.environ.get("LOTLOGIC_ZIP", "")
+ZIP = os.environ.get("CARTHESIS_ZIP", "")
 RADIUS = 75
 DEALER_ENDPOINT = "https://api.marketcheck.com/v2/search/car/active"
 MODELS = {
@@ -740,7 +740,7 @@ def run(
     max_price: int = PRICE_MAX, additional_zip: str | None = None,
 ) -> int:
     if not re.fullmatch(r"\d{5}", ZIP):
-        raise ValueError("Set --zip or LOTLOGIC_ZIP to your five-digit search ZIP")
+        raise ValueError("Set --zip or CARTHESIS_ZIP to your five-digit search ZIP")
     if not 1 <= RADIUS <= 100 or not 1 <= MAX_CALLS <= 100:
         raise ValueError("Radius and max calls must be between 1 and 100")
     reference_path = find_reference_workbook()

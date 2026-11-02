@@ -33,7 +33,7 @@ The benchmark is the median peer asking price adjusted to the target reference M
 - `web/model.js` owns the ownership and loan calculations; `web/app.js` renders them.
 - `add_deal_edge.py` owns the local comparison; `vehicle_reference.py` matches trims and equipment.
 - `search.py` and `search_private.py` retrieve and track candidates.
-- `lotlogic.py compare` joins candidate prices and scores to buyer-reviewed assumptions.
+- `carthesis.py compare` joins candidate prices and scores to buyer-reviewed assumptions.
 - `examples/local-listings.json` reproduces the synthetic local score; `examples/comparison.json` reproduces the browser example.
 
 The offline tests cover amortization, prepayment, early sale, hybrid comparisons, input validation, the local index, workbook export, search filtering, and the retained utilities. Browser tests exercise all views, edit/save, imports, invalid data, and narrow layouts.

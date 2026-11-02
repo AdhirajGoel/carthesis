@@ -12,13 +12,13 @@ sys.path.insert(0, str(ROOT))
 from vehicle_reference import key
 from add_deal_edge import calculate_scores
 from search import write_workbook, spreadsheet_value, find_master_workbook, append_new_cars
-from lotlogic import export_comparison
+from carthesis import export_comparison
 
 
 def main():
     assert spreadsheet_value('=HYPERLINK("https://example.test")').startswith("'")
     assert spreadsheet_value(-200) == -200
-    env = dict(os.environ, LOTLOGIC_REFERENCE=str(ROOT / 'examples/reference.json'))
+    env = dict(os.environ, CARTHESIS_REFERENCE=str(ROOT / 'examples/reference.json'))
     env.pop('MARKETCHECK_API_KEY', None)
     for name in ['search', 'search_private', 'vehicle_reference', 'CarPlay_filter', 'add_deal_edge', 'update_shortlist', 'vin_search', 'vin_tools', 'history_check']:
         subprocess.run([sys.executable, str(ROOT / (name + '.py')), '--self-test'], env=env, check=True)

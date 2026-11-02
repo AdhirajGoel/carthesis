@@ -1,12 +1,12 @@
-# LotLogic
+# CarThesis
 
 Compare car deals by local asking price and total cost of ownership.
 
-LotLogic is an AI-assisted car-buying research tool for Codex and Claude Code. It pairs a seller-balanced local price comparison with an editable model of financing, fuel, insurance, maintenance, and resale, so you can test whether a cheaper used car or a hybrid premium makes sense for your purchase.
+CarThesis is an AI-assisted car-buying research tool for Codex and Claude Code. It pairs a seller-balanced local price comparison with an editable model of financing, fuel, insurance, maintenance, and resale, so you can test whether a cheaper used car or a hybrid premium makes sense for your purchase.
 
 I love data, especially when it changes an everyday decision. This project grew out of wanting to test familiar car-buying advice against local listings and the full cost of ownership.
 
-**Try the demo:** open **web/index.html** in a browser or double-click **Open LotLogic.command** after cloning or downloading the repository. It runs locally with synthetic data, without an account or API call. Use **Save comparison** to retain your assumptions and cost selections, then **Open comparison JSON** to restore them.
+**Try the demo:** open **web/index.html** in a browser or double-click **Open CarThesis.command** after cloning or downloading the repository. It runs locally with synthetic data, without an account or API call. Use **Save comparison** to retain your assumptions and cost selections, then **Open comparison JSON** to restore them.
 
 ![Synthetic new, hybrid, and used vehicles ranked by five-year ownership cost](docs/images/ownership-overview.png)
 
@@ -32,7 +32,7 @@ The APR crossover compares cash through full loan payoff. Ownership cost also in
 
 Give Codex or Claude Code this instruction:
 
-> Read AGENTS.md in this repository. Set up LotLogic on my Mac, show me the synthetic demo, then guide me through researching and comparing cars for my own purchase. Ask for my preferences and confirm any API spending before making live calls.
+> Read AGENTS.md in this repository. Set up CarThesis on my Mac, show me the synthetic demo, then guide me through researching and comparing cars for my own purchase. Ask for my preferences and confirm any API spending before making live calls.
 
 The agent installs the Python dependencies in a local environment, checks the setup, and collects your buying criteria. MarketCheck access is needed only for live listing research.
 

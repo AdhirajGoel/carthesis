@@ -20,6 +20,8 @@ def main():
         failures = []
         page.on('pageerror', lambda error: failures.append(str(error)))
         page.goto((ROOT / 'web/index.html').as_uri())
+        assert page.title() == 'CarThesis'
+        assert page.get_by_role('heading', name='CarThesis', exact=True).is_visible()
         page.get_by_role('heading', name='What changes the decision').wait_for()
         assert page.locator('#error').is_hidden()
         if args.screenshots:

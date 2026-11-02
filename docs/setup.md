@@ -8,7 +8,7 @@ Use Python 3.10+ and Node.js 18+. From the repository root:
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 .venv/bin/python tests/run_checks.py
-.venv/bin/python lotlogic.py init
+.venv/bin/python carthesis.py init
 open web/index.html
 ```
 
@@ -58,7 +58,7 @@ Edit `data/comparison.json`, using `examples/comparison.json` as the schema. Sav
 For a listed vehicle, set `vin` to its candidate VIN. New-car quotes can omit `vin`. Transfer the workbook's asking prices and deal scores into the comparison:
 
 ```sh
-.venv/bin/python lotlogic.py compare results/candidates-Master.xlsx --assumptions data/comparison.json --output data/comparison.json
+.venv/bin/python carthesis.py compare results/candidates-Master.xlsx --assumptions data/comparison.json --output data/comparison.json
 ```
 
 Choose **Open comparison JSON** in the app and select that file. Edit inputs, compare outcomes, and save a new JSON file when finished. Import errors leave the previous comparison intact. Editing a vehicle's pricing or identity clears its previous local score.
