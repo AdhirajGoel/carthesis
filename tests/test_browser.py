@@ -29,8 +29,6 @@ def main():
             page.locator('#view').screenshot(path=str(args.screenshots / 'ownership-overview.png'))
         page.get_by_role('button', name='Local price index', exact=True).click()
         assert '3.70%' in page.locator('#view').inner_text()
-        if args.screenshots:
-            page.locator('#view .card').screenshot(path=str(args.screenshots / 'local-price-index.png'))
         for tab in ['Ownership costs', 'Gas vs hybrid', 'Loan & prepay', 'APR crossover', 'Assumptions']:
             page.get_by_role('button', name=tab, exact=True).click()
             assert page.locator('#error').is_hidden(), page.locator('#error').inner_text()

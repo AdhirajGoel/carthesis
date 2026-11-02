@@ -53,7 +53,7 @@ Optional tools retain their own `--help` and offline `--self-test` commands:
 
 ## Build the ownership comparison
 
-Edit `data/comparison.json`, using `examples/comparison.json` as the schema. Saved files also retain `enabled` (the included cost components) and `preferencePremium` (extra savings required to choose used). Older files without these fields include all components and require $0 extra savings. Prices and all costs are US dollars. `maint` is annual maintenance plus repairs; `insurance` is an optional vehicle-specific annual quote. `r5` and `r10` are resale fractions of today's purchase price after another five and ten years of ownership. `term` optionally overrides the common loan term. `source` and `checkedAt` preserve the origin and date of assumptions.
+Edit `data/comparison.json` using the [example](../examples/comparison.json) and [field definitions](model.md#comparison-files). Enter vehicle-specific quotes and estimates, with their sources and checked dates. Prices and costs are in US dollars.
 
 For a listed vehicle, set `vin` to its candidate VIN. New-car quotes can omit `vin`. Transfer the workbook's asking prices and deal scores into the comparison:
 
@@ -61,7 +61,7 @@ For a listed vehicle, set `vin` to its candidate VIN. New-car quotes can omit `v
 .venv/bin/python carthesis.py compare results/candidates-Master.xlsx --assumptions data/comparison.json --output data/comparison.json
 ```
 
-Choose **Open comparison JSON** in the app and select that file. Edit inputs, compare outcomes, and save a new JSON file when finished. Import errors leave the previous comparison intact. Editing a vehicle's pricing or identity clears its previous local score.
+Choose **Open comparison JSON** in the app and select that file. Compare outcomes, then use **Save comparison** to keep your edits.
 
 ## Optional browser checks
 

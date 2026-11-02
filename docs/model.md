@@ -28,6 +28,12 @@ Within a group, age and mileage differences are scaled by their seller-level int
 
 The benchmark is the median peer asking price adjusted to the target reference MSRP. Deal edge is `100 × (1 − asking price / benchmark)`. A positive value means below the benchmark. Insufficient or incompatible evidence produces an empty score. The geography comes from the source search, so the input workbook must represent the intended local market.
 
+## Comparison files
+
+Use `examples/comparison.json` as the version 1 input format. `maint` is annual maintenance plus repairs; `insurance` is an optional vehicle-specific annual quote. `r5` and `r10` are resale fractions of today's purchase price after another five and ten years of ownership. `term` optionally overrides the common loan term. `source` and `checkedAt` preserve the origin and date of assumptions.
+
+Saved files retain `enabled` (the included cost components) and `preferencePremium` (extra savings required to choose used). Older files without these fields include all components and require $0 extra savings. Import errors leave the previous comparison intact. Editing a vehicle's pricing or identity clears its previous local score.
+
 ## Files and evidence
 
 - `web/model.js` owns the ownership and loan calculations; `web/app.js` renders them.
